@@ -1,0 +1,67 @@
+    pipeline {
+        agent { label 'cenomi' }
+
+        tools {
+            // Install the Maven version configured as "M3" and add it to the path.
+            maven "maven_3.8.3"
+        }
+
+        options{
+            timestamps()
+            buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5'))
+        }
+
+        environment {
+            DEFAULT_BRANCH = 'feature/api'
+            gitlab_URL = 'https://gitlab.com/sales_retail/cenomi-wakanda.git'
+            credentialsID = '2d9b2367-9d3c-40d3-9102-c1ddabdefe47'
+            imageName= 'cenomi-wakanda'
+        }
+        stages {
+            stage('git Checkout') {
+                steps {
+                    script {
+                        env.BRANCH_TO_BUILD = DEFAULT_BRANCH
+                    }
+                    // Get the code from the 'main' branch of a GitHub repository
+                    git url: "${env.gitlab_URL}", branch: "${env.BRANCH_TO_BUILD}", credentialsId: "${env.credentialsID}"
+                }          
+            }
+
+            stage('Build cenomi-wakanda') {
+                steps {
+                    // Run Maven on a Unix agent.
+                    sh 'mvn release:clean -B release:prepare'
+                }
+            }
+
+            stage('Stop docker container') {
+                steps {
+                    sh 'sudo docker-compose down'
+                }
+            }
+
+            stage('Check and Remove Docker Image') {
+                steps {
+                    script {
+                        def image = "${imageName}"  // Replace with your actual image name and tag
+                        def imageExists = sh(script: "sudo docker image ls | grep ${image}", returnStatus: true) == 0
+
+                        if (imageExists) {
+                            echo "Docker image ${image} exists. Removing..."
+                            sh "sudo docker rmi ${image}"
+                        } else {
+                            echo "Docker image ${image} is not available. Nothing to remove."
+                        }
+                    }    
+                }
+            }
+
+            stage('Run docker container') {
+                steps {
+                    sh 'sudo docker-compose up -d'
+                }
+            }                
+        }
+        
+    }

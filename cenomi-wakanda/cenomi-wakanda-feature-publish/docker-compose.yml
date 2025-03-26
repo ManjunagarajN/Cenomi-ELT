@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  app:
+    image: 'cenomi-wakanda:latest'     
+    build:
+      context: .
+    container_name: cenomi-wakanda
+    ports:
+      - '5555:5555'
+    restart: always
