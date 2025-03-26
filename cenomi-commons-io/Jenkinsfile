@@ -1,0 +1,34 @@
+pipeline {
+    agent { label 'cenomi' }
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven_3.9.6"
+    }
+    environment {
+        DEFAULT_BRANCH = 'master'
+    }
+    stages {
+        stage('git') {
+            steps {
+                script {
+                    env.BRANCH_TO_BUILD = DEFAULT_BRANCH
+                }
+                // Get the code from the 'main' branch of a GitHub repository
+                git url: 'https://gitlab.com/sales_retail/cenomi-commons-io.git', branch: "${env.BRANCH_TO_BUILD}", credentialsId: '2d9b2367-9d3c-40d3-9102-c1ddabdefe47'
+            }          
+        }
+        stage('Which Java?') {
+            steps {
+                sh 'java --version'
+                sh 'mvn --version'
+            }
+        }
+        stage('Build parent pom') {
+            steps {
+                // Run Maven on a Unix agent.
+                sh 'mvn release:clean -B release:prepare release:perform'
+            }
+        }
+        
+    }
+}

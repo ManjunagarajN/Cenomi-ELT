@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.retailinsights.pom</groupId>
+        <artifactId>cenomi-starter-parent</artifactId>
+        <version>1.0</version>
+        <relativePath />
+    </parent>
+
+    <groupId>com.retailinsights.commons</groupId>
+    <artifactId>cenomi-commons-io</artifactId>
+    <version>0.4-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>cenomi-commons-io</name>
+    <description>Cenomi Commons IO</description>
+
+    <properties>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+        <bom-internal-version>0.2</bom-internal-version>
+        <bom-external-version>0.2</bom-external-version>
+    </properties>
+
+    <scm>
+        <tag>HEAD</tag>
+        <developerConnection>scm:git:git@gitlab.com:sales_retail/${project.artifactId}.git</developerConnection>
+        <url>https://gitlab.com/sales_retail/${project.artifactId}</url>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.retailinsights.commons</groupId>
+            <artifactId>cenomi-enums</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.retailinsights.bom</groupId>
+                <artifactId>cenomi-bom-internal</artifactId>
+                <version>${bom-internal-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.bom</groupId>
+                <artifactId>cenomi-bom-external</artifactId>
+                <version>${bom-external-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
