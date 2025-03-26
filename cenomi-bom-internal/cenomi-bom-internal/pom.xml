@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.retailinsights.pom</groupId>
+        <artifactId>cenomi-parent-pom</artifactId>
+        <version>1.0.2</version>
+    </parent>
+
+    <artifactId>cenomi-bom-internal</artifactId>
+    <version>1.0.3-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>cenomi-bom-internal</name>
+    <description>BOM internal for Cenomi</description>
+
+    <scm>
+        <developerConnection>
+            scm:git:git@gitlab.com:sales_retail/${project.artifactId}.git
+        </developerConnection>
+        <tag>SM-cenomi-bom-internal-1.0.1</tag>
+        <url>https://gitlab.com/sales_retail/${project.artifactId}</url>
+    </scm>
+
+    <properties>
+        <scheduler.persistence.version>1.0.0</scheduler.persistence.version>
+        <commons.io.version>1.0.1</commons.io.version>
+        <cenomi.exception.version>1.0.0</cenomi.exception.version>
+        <cenomi.onboard.persistence.version>1.0.1</cenomi.onboard.persistence.version>
+        <cenomi-enums-version>1.0.0</cenomi-enums-version>
+        <cenomi-event-persistene-version>1.0.2</cenomi-event-persistene-version>
+        <scheduler.version>1.0.0</scheduler.version>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+        <cenomi-kafka-config.version>0.1</cenomi-kafka-config.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.retailinsights.pom</groupId>
+                <artifactId>cenomi-exception-handler</artifactId>
+                <version>${cenomi.exception.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.pom</groupId>
+                <artifactId>cenomi-scheduler-persistence</artifactId>
+                <version>${scheduler.persistence.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.pom</groupId>
+                <artifactId>cenomi-commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.pom</groupId>
+                <artifactId>cenomi-onboarding-persistence</artifactId>
+                <version>${cenomi.onboard.persistence.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.pom</groupId>
+                <artifactId>cenomi-enums</artifactId>
+                <version>${cenomi-enums-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.pom</groupId>
+                <artifactId>cenomi-event-persistence</artifactId>
+                <version>${cenomi-event-persistene-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.pom</groupId>
+                <artifactId>cenomi-scheduler</artifactId>
+                <version>${scheduler.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.retailinsights.jms</groupId>
+                <artifactId>cenomi-kafka-config</artifactId>
+                <version>${cenomi-kafka-config.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+</project>
